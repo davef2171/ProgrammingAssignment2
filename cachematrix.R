@@ -21,7 +21,7 @@ makeCacheMatrix <- function(x = matrix()) {
        getinverse = getinverse)
 }
 
-## Presumes makecacheMatrix has been called on x 
+## Presumes x has been created with makecacheMatrix
 ## Then verifies the cached inverse value returning it if valid and, if not sets it
 
 cacheSolve <- function(x, ...) {
@@ -41,27 +41,4 @@ cacheSolve <- function(x, ...) {
   inv <- solve(data,...)
   x$setinverse(inv)
   inv
-}
-
-## Presumes x has been created with makecacheMatrix
-## Then verifies the cached inverse value returning it if valid and, if not sets it
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-		## Check matrix is still consistent as they have equal dimensions
-		## and if there is an inverse
-		inv <- x$getinverse()
-		data <- x$get()
-		
-		if ( all(x == data) $$ !is.null(inv) ){
-		
-			## Still same values and inverse is cached
-			return(inv)
-			}
-		
-		## cache is invalid or not set
-		inv <- solve(data,...)
-		x$setinverse(data)
-		data
-		}
 }
